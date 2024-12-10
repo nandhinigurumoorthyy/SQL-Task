@@ -75,15 +75,13 @@ The LIMIT 3 restricts the output to only the top 3 products with the highest pri
 
 6. Get the names of customers who have ordered Product A.
 
-ALTER TABLE orders
-ADD product_id INT NOT NULL,
-ADD FOREIGN KEY (product_id) REFERENCES products(product_id);
+ALTER TABLE orders ADD product_id INT;
 
 UPDATE orders
 SET product_id = 1
-WHERE product_id =3;
+WHERE order_id = 3; 
 
-SELECT DISTINCT c.customer_name
+SELECT c.customer_name, p.product_id,p.product_name
 FROM customers c
 JOIN orders o ON c.customer_id = o.customer_id
 JOIN products p ON o.product_id = p.product_id
@@ -103,7 +101,7 @@ The query displays the order date for each customer, providing the specific date
 
 8. Retrieve the orders with a total amount greater than 150.00.
 
-SELECT * FROM orders WHERE total_amount >150;
+SELECT orders.order_id,orders.customer_id,orders.order_date,orders.total_amount FROM orders WHERE total_amount >150;
 
 The query selects all columns from the orders table where the total_amount is greater than 150.
 The WHERE clause filters the rows, only including orders with a total_amount greater than 150.
